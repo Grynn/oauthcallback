@@ -34,9 +34,13 @@ window.onload = function() {
     vars[key] = value;
   });
 
-  // Assuming we the code exists, change the text.
-  codeWrapper.innerText = vars['code'];
+  if (vars['code']) {
+    // Assuming we the code exists, change the text.
+    codeWrapper.innerText = vars['code'];
 
-  // Add event listener
-  codeWrapper.addEventListener('click', onCodeClick);
+    // Add event listener
+    codeWrapper.addEventListener('click', onCodeClick);
+  } else {
+    codeWrapper.innerText = 'No code found.';
+  }
 };
