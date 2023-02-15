@@ -1,25 +1,97 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OAuth Code Grabber</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>OAuth Helper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css"
+    />
+    <style>
+      body {
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2em;
+        background-color: #fff;
+        border-radius: 0.5em;
+        box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
+      }
+
+      .code-container {
+        background-color: #f5f5f5;
+        border-radius: 0.5em;
+        padding: 1em;
+        margin: 1em 0;
+      }
+
+      .footer {
+        margin-top: 2em;
+      }
+
+      .instructions {
+        line-height: 1.1em;
+      }
+    </style>
+    <script>
+      window.onload = () => {
+        const $ = document.querySelector.bind(document)
+
+        const params = new URLSearchParams(window.location.search)
+        const code = params.get('code')
+        if (!code) {
+          $('.code').innerHTML = 'No code found in URL'
+          $('.code').classList.add('text-danger')
+        } else {
+          $('.code').innerHTML = code
+          $('.code-container').addEventListener('click', () => {
+            navigator.clipboard.writeText(code)
+            $('.instructions').innerHTML = 'Code copied to clipboard!'
+            setTimeout(() => {
+              $('.instructions').innerHTML =
+                'Click the code to copy 📋 it. Then paste into your application'
+            }, 10000)
+          })
+        }
+      }
     </script>
-</head>
+  </head>
 
-<body>
-    <span id="instructions">Click below to Copy the Oauth Code. Paste it into your app.</span>
-    <span id="oauthCode">PLACEHOLDER</span>
-    <span class="footer">
-        Problems?
-        <a href='https://github.com/James-Firth/oauthcallback/issues'>Create an issue</a>
-        | Source Code:
-        <a href='https://github.com/James-Firth/oauthcallback/'>Github</a>
-    </span>
-</body>
+  <body>
+    <div class="container">
+      <h1>OAuth code Helper</h1>
+      <p class="instructions">
+        Click the code to copy 📋 it. Then paste into your application.
+      </p>
 
+      <div class="code-container">
+        <p style="user-select: all; padding: 2em">
+          <code class="code">PLACEHOLDER</code>
+        </p>
+      </div>
+
+      <a
+        class="github-fork-ribbon"
+        data-ribbon="Fork me on GitHub"
+        href="https://github.com/grynn/oauthcallback/"
+        >Github</a
+      >
+
+      <div class="footer">
+        <p>
+          Problems?
+          <a href="https://github.com/grynn/oauthcallback/issues"
+            >Create an issue</a
+          >
+          | Source Code:
+          <a href="https://github.com/grynn/oauthcallback/">Github</a>
+        </p>
+      </div>
+    </div>
+  </body>
 </html>
